@@ -1,5 +1,7 @@
 package com.abraham.netty;
 
+import com.abraham.handler.MsgpackDecoder;
+import com.abraham.handler.MsgpackEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -39,8 +41,11 @@ public class ServerMain {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
 
-                            socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
-                            socketChannel.pipeline().addLast(new StringDecoder());
+//                            socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
+//                            socketChannel.pipeline().addLast(new StringDecoder());
+
+                            socketChannel.pipeline().addLast("msgpack decoder", new MsgpackDecoder());
+                            socketChannel.pipeline().addLast("msgpack encoder", new MsgpackEncoder());
                             socketChannel.pipeline().addLast(new ServerChannelHandler());
 
                         }
