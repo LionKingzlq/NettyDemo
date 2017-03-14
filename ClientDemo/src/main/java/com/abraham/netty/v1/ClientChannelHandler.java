@@ -1,7 +1,8 @@
-package com.abraham.netty;
+package com.abraham.netty.v1;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -10,10 +11,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
 
-    private final int sendNumber;
+    private final ByteBuf message;
 
     public ClientChannelHandler(){
-
+        byte[] req = ("QUERY TIME ORDER"+System.getProperty("line.separator")).getBytes();
+        message = Unpooled.buffer(req.length);
+        message.writeBytes(req);
     }
 
     @Override
