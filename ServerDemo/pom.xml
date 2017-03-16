@@ -8,6 +8,8 @@
 	<packaging>jar</packaging>
 
 	<properties>
+		<msgpack.version>0.6.6</msgpack.version>
+
 		<java-version>1.6</java-version>
 		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
 		<spring-security-version>3.2.5.RELEASE</spring-security-version>
@@ -19,36 +21,35 @@
 	</properties>
 
 	<dependencies>
+		<!--Netty start-->
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>4.1.8.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.msgpack</groupId>
+			<artifactId>msgpack</artifactId>
+			<version>${msgpack.version}</version>
+		</dependency>
+		<!--Netty end-->
 
+		<!--Spring start-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
 			<type>jar</type>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${org.springframework-version}</version>
 			<type>jar</type>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>${org.springframework-version}</version>
-			<type>jar</type>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 			<type>jar</type>
 		</dependency>
@@ -61,13 +62,23 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+			<type>jar</type>
+		</dependency>
+		<!--Spring end-->
+
+		<!--Junit start-->
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		<!--Junit end-->
 
-		<!-- 文件上传需要的jar包 -->
+		<!-- 文件上传需要的jar包 start-->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -79,5 +90,15 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<!-- 文件上传需要的jar包 end-->
+
+		<!--json start-->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+		<!--json end-->
 	</dependencies>
 </project>

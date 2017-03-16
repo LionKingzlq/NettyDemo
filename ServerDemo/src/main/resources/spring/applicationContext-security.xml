@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:s="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd"
+	default-autowire="byType">
+
+	<description>SpringSecurity安全配置</description>
+
+	<!-- http安全配置 -->
+	<s:http auto-config="true" access-decision-manager-ref="accessDecisionManager"
+		access-denied-page="/commons/403.jsp">
+		<s:intercept-url pattern="/commons/**" filters="none" />
+		<s:intercept-url pattern="/styles/**" filters="none" />
+		<s:intercept-url pattern="/images/**" filters="none" />
+		<s:intercept-url pattern="/resources/**" filters="none" />
+		<s:intercept-url pattern="/filedownload/**" filters="none" />
+		<s:intercept-url pattern="/imagedownload/**" filters="none" />
+		<s:intercept-url pattern="/login.do" filters="none" />
+		<s:form-login login-page="/login.do" authentication-failure-url="/login.do?error=true" default-target-url="/security/CsUser/firstLoginCheck.do" always-use-default-target="true" />
+		<s:logout logout-success-url="/login.do" />
+		<s:concurrent-session-control expired-url="/commons/timeout.jsp"  />
+	</s:http>
+	
+	<bean id="dwxTimeoutFilter" class="javacommon.filter.dwz.DwzSessionValidateFilter">
+		<s:custom-filter before="FIRST"/>
+	</bean>
+
+	<!-- 认证配置 -->
+	<s:authentication-provider user-service-ref="userDetailsService">
+		<!-- 可设置hash使用sha1或md5散列密码后再存入数据库 -->
+		<s:password-encoder hash="md5" />
+	</s:authentication-provider>
+
+	<!-- 项目实现的用户查询服务 -->
+	<bean id="userDetailsService" class="cn.koolcloud.security.service.UserDetailsServiceImpl" />
+	
+	<!-- 系统编号 -->
+	<bean id="sysCode" class="java.lang.String">
+		<constructor-arg index="0" value="MSC" />
+	</bean>
+	
+	<!--
+		重新定义的FilterSecurityInterceptor,使用databaseDefinitionSource提供的url-授权关系定义
+	-->
+	<bean id="filterSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<s:custom-filter before="FILTER_SECURITY_INTERCEPTOR" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource" ref="databaseDefinitionSource" />
+	</bean>
+
+	<!-- DefinitionSource工厂,使用resourceDetailsService提供的URL-授权关系. -->
+	<bean id="databaseDefinitionSource" class="cn.koolcloud.security.util.DefinitionSourceFactoryBean">
+		<property name="resourceDetailsService" ref="resourceDetailsService" />
+	</bean>
+
+	<!-- 项目实现的URL-授权查询服务 -->
+	<bean id="resourceDetailsService" class="cn.koolcloud.security.service.ResourceDetailsServiceImpl" />
+
+	<!-- 授权判断配置, 将授权名称的默认前缀由ROLE_ -->
+	<bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<bean class="org.springframework.security.vote.RoleVoter">
+					<property name="rolePrefix" value="ROLE_" />
+				</bean>
+				<bean class="org.springframework.security.vote.AuthenticatedVoter" />
+			</list>
+		</property>
+	</bean>
+	<!--JCaptcha验证码服务 -->
+	<bean id="captchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<property name="captchaEngine">
+			<bean class="javacommon.filter.jcaptcha.GMailEngine" />
+		</property>
+		<!-- 默认生成的图片180秒过期 , 可另行设置-->
+		<property name="minGuarantedStorageDelayInSeconds" value="180" />
+	</bean>
+
+</beans>

@@ -11,6 +11,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpRequestEncoder;
+import io.netty.handler.codec.http.HttpResponseDecoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.string.StringDecoder;
 
 /**
@@ -41,8 +45,14 @@ public class ClientMain {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
 
-                            socketChannel.pipeline().addLast("msgpack decoder", new MsgpackDecoder());
-                            socketChannel.pipeline().addLast("msgpack encoder",new MsgpackEncoder());
+//                            socketChannel.pipeline().addLast("msgpack decoder", new MsgpackDecoder());
+//                            socketChannel.pipeline().addLast("msgpack encoder",new MsgpackEncoder());
+
+                            socketChannel.pipeline().addLast(new HttpResponseDecoder());
+                            socketChannel.pipeline().addLast(new HttpRequestEncoder());
+
+                            socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
+                            socketChannel.pipeline().addLast(new StringDecoder());
                             socketChannel.pipeline().addLast(new ClientChannelHandler());
                         }
                     });

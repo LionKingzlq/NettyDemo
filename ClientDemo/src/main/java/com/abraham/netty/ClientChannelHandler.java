@@ -13,13 +13,13 @@ public class ClientChannelHandler extends ChannelInboundHandlerAdapter {
     private final int sendNumber;
 
     public ClientChannelHandler(){
-
+        sendNumber = 0;
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
-        ctx.writeAndFlush(message);
+        ctx.writeAndFlush("dsadadasdada");
     }
 
     @Override

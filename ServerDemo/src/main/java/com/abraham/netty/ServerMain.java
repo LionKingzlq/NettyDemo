@@ -8,6 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.codec.string.StringDecoder;
 
 /**
@@ -41,18 +43,23 @@ public class ServerMain {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
 
+//
+
+//                            socketChannel.pipeline().addLast("msgpack decoder", new MsgpackDecoder());
+//                            socketChannel.pipeline().addLast("msgpack encoder", new MsgpackEncoder());
+
+                            socketChannel.pipeline().addLast(new HttpResponseEncoder());
+                            socketChannel.pipeline().addLast(new HttpRequestDecoder());
 //                            socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
 //                            socketChannel.pipeline().addLast(new StringDecoder());
-
-                            socketChannel.pipeline().addLast("msgpack decoder", new MsgpackDecoder());
-                            socketChannel.pipeline().addLast("msgpack encoder", new MsgpackEncoder());
                             socketChannel.pipeline().addLast(new ServerChannelHandler());
-
                         }
                     });
             ChannelFuture f = b.bind(port).sync();
+            if(f.isSuccess()){
+                System.out.println("server start---------------");
+            }
             f.channel().closeFuture().sync();
-
         }catch (Exception e){
             e.printStackTrace();
         }finally {
