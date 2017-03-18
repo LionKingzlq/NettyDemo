@@ -1,16 +1,13 @@
 package com.abraham.netty;
 
-import com.abraham.handler.MsgpackDecoder;
-import com.abraham.handler.MsgpackEncoder;
+import com.abraham.project.util.ReflectUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.http.*;
-import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
-import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
  * Created by Abraham on 2017/2/27.
@@ -18,7 +15,7 @@ import io.netty.handler.codec.string.StringDecoder;
 public class ServerMain {
 
     public static void main(String[] args) throws Exception{
-        int port = 8080;
+        int port = 8088;
         if(args != null && args.length > 0){
             try{
                 port = Integer.valueOf(args[0]);
@@ -26,6 +23,8 @@ public class ServerMain {
 
             }
         }
+
+        ReflectUtil.reflect();
 
         new ServerMain().bind(port);
     }
@@ -42,16 +41,13 @@ public class ServerMain {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
-
-//
-
-//                            socketChannel.pipeline().addLast("msgpack decoder", new MsgpackDecoder());
-//                            socketChannel.pipeline().addLast("msgpack encoder", new MsgpackEncoder());
-
+//                          解析http请求
                             socketChannel.pipeline().addLast(new HttpResponseEncoder());
                             socketChannel.pipeline().addLast(new HttpRequestDecoder());
-//                            socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
-//                            socketChannel.pipeline().addLast(new StringDecoder());
+                            socketChannel.pipeline().addLast(new HttpObjectAggregator(1048576));
+
+                            socketChannel.pipeline().addLast(new ChunkedWriteHandler());
+
                             socketChannel.pipeline().addLast(new ServerChannelHandler());
                         }
                     });
