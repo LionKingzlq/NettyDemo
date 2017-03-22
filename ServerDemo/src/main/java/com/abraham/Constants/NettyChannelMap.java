@@ -26,4 +26,8 @@ public class NettyChannelMap {
             }
         }
     }
+
+    public static boolean containsKey(String clientId){
+        return map.containsKey(clientId);
+    }
 }

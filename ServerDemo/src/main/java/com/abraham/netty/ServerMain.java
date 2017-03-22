@@ -7,6 +7,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
@@ -47,6 +48,9 @@ public class ServerMain {
                             socketChannel.pipeline().addLast(new HttpObjectAggregator(1048576));
 
                             socketChannel.pipeline().addLast(new ChunkedWriteHandler());
+
+//                            支持websocket
+                            socketChannel.pipeline().addLast(new WebSocketServerCompressionHandler());
 
                             socketChannel.pipeline().addLast(new ServerChannelHandler());
                         }
