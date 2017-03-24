@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+	default-autowire="byName">
+
+	<!-- 数据源定义,使用Apache DBCP 连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="2" /><!-- 初始化连接:连接池启动时创建的初始化连接数量 -->
+		<property name="maxActive" value="20" /><!-- 最大活动连接:连接池在同一时间能够分配的最大活动连接的数量, 
+			如果设置为非正数则表示不限制 -->
+		<property name="maxIdle" value="10" /> <!-- 最大空闲连接:连接池中容许保持空闲状态的最大连接数量,超过的空闲连接将被释放,如果设置为负数表示不限制 -->
+		<property name="minIdle" value="2" /><!-- 最小空闲连接:连接池中容许保持空闲状态的最小连接数量,低于这个数量将创建新的连接,如果设置为0则不创建 -->
+		<property name="maxWait" value="1000" /><!-- 最大等待时间:当没有可用连接时,连接池等待连接被归还的最大时间(以毫秒计数),超过时间则抛出异常,如果设置为-1表示无限等待 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" /><!--进行连接空闲时间判断配置。 -->
+		<property name="timeBetweenEvictionRunsMillis" value="300000" /><!-- 
+			失效检查线程运行时间间隔 -->
+		<!--<property name="removeAbandoned" value="false"/>强制自我中断避免dbcp自身bug出现连接过久资源耗尽 -->
+		<!--<property name="removeAbandonedTimeout" value="180"/>自我中断时间秒 -->
+		<property name="logAbandoned" value="true" /> <!--记录中断事件 -->
+		<property name="validationQuery" value="SELECT 1 FROM DUAL" />
+		<property name="testOnBorrow" value="true" /> <!-- 指明是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个. -->
+		<property name="testOnReturn" value="true" /><!-- 指明是否在归还到池中前进行检验 -->
+		<property name="testWhileIdle" value="true" /><!-- 指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.注意: 
+			设置为true后如果要生效,validationQuery参数必须设置为非空字符串 -->
+	</bean>
+
+
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName"><value>java:comp/env/jdbc/ds</value></property> 
+		</bean> -->
+
+	<!-- 用于测试或demo的hsql的内存dataSource,可以在创建数据库时运行指定的初始化sql语句,如建表,插入测试数据,sql语句之间使用分号";"分隔 -->
+	<!-- <bean id="dataSource" class="org.funee.framework.test.hsql.HSQLMemDataSourceFactoryBean"> 
+		<property name="encoding" value="UTF-8"/> <property name="scriptLocations"> 
+		<value>classpath*:hsql_test_scripts.sql</value> </property> <property name="sqlScript"> 
+		<value> create table blog(id int); insert into blog values (1); </value> 
+		</property> </bean> -->
+
+	<!-- 支持 @Transactional 标记 -->
+	<!-- <tx:annotation-driven/> -->
+
+	<!-- 支持 @AspectJ 标记 -->
+	<!-- <aop:aspectj-autoproxy/> -->
+
+	<!-- 以AspectJ方式 定义 AOP -->
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* javacommon.base.BaseManager.*(..))"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* cn.*..*.service.*Manager.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+	<!-- 基本事务定义,使用transactionManager作事务管理,默认get* find*方法的事务为readonly,其余方法按默认设置. 
+		默认的设置请参考Spring文档事务一章. -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- APMP 客户端 -->
+	<bean id="apmpClient" class="javacommon.apmp.ApmpClient">
+		<property name="serverUrl" value="${apmp.serverUrl}" />
+		<property name="appKey" value="${apmp.appKey}" />
+		<property name="secretKey" value="${apmp.secretkey}" />
+		<property name="apmp2QueryTxnInfoKey" value="${apmp.apmp2QueryTxnInfoKey}" />
+	</bean>
+	
+</beans>

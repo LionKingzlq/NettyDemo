@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2654f926-96f7-4185-96db-44d632ffb6e6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/project/model/Response.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/Constants/NettyChannelMap.java" afterPath="$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/Constants/NettyChannelMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/netty/ServerChannelHandler.java" afterPath="$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/netty/ServerChannelHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/netty/ServerMain.java" afterPath="$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/netty/ServerMain.java" />
     </list>
     <ignored path="netty.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,120 +24,7 @@
     <favorites_list name="netty" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ServerChannelHandler.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/netty/ServerChannelHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-              <folding>
-                <element signature="method#handleHttp#0;class#ServerChannelHandler#0" expanded="false" />
-                <element signature="method#handleWebSocketFrame#0;class#ServerChannelHandler#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/project/model/Response.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NettyChannelMap.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/Constants/NettyChannelMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-              <folding>
-                <element signature="e#830#831#0" expanded="true" />
-                <element signature="e#878#879#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerMain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/netty/ServerMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="54" column="70" selection-start-line="54" selection-start-column="70" selection-end-line="54" selection-end-column="70" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientMain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ClientDemo/src/main/java/com/abraham/netty/v1/ClientMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientChannelHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ClientDemo/src/main/java/com/abraham/netty/v1/ClientChannelHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="18" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultFullHttpResponse.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.m2/repository/io/netty/netty-all/4.1.8.Final/netty-all-4.1.8.Final.jar!/io/netty/handler/codec/http/DefaultFullHttpResponse.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="61" column="26" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrgAdminController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/project/controller/OrgAdminController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReflectUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ServerDemo/src/main/java/com/abraham/project/util/ReflectUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1539">
-              <caret line="94" column="29" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/util/Map.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6327">
-              <caret line="359" column="17" selection-start-line="359" selection-start-column="8" selection-end-line="359" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -295,16 +178,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="netty" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="netty" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="netty" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -890,7 +763,7 @@
       <workItem from="1489736921704" duration="9376000" />
       <workItem from="1489746326383" duration="829000" />
       <workItem from="1489830328116" duration="65000" />
-      <workItem from="1490163777781" duration="1414000" />
+      <workItem from="1490163777781" duration="1527000" />
     </task>
     <task id="LOCAL-00001" summary="MsgPack 编解码">
       <created>1488346161860</created>
@@ -913,11 +786,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489830387808</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="support websocket">
+      <created>1490165219349</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1490165219349</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30848000" />
+    <option name="totallyTimeSpent" value="30961000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -969,7 +849,8 @@
     <MESSAGE value="MsgPack 编解码" />
     <MESSAGE value="prepare the things" />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="support websocket" />
+    <option name="LAST_COMMIT_MESSAGE" value="support websocket" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
